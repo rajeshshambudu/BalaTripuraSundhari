@@ -1,122 +1,144 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nimeshika • 4 Months</title>
+<title>Nimeshika • Wonderful World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* { box-sizing: border-box; }
-
 body {
     margin: 0;
-    min-height: 100vh;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #cdb4db, #ffc8dd, #ffafcc);
-    background-size: 300% 300%;
-    animation: bg 12s ease infinite;
-    overflow-x: hidden;
+    background: linear-gradient(180deg,#ffafcc,#cdb4db);
+    overflow: hidden;
     color: white;
     text-align: center;
 }
 
-@keyframes bg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-h1 {
-    font-size: 3em;
-    margin-top: 40px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.8);
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { transform: scale(1); }
-    to { transform: scale(1.05); }
-}
-
-h2 {
-    margin-top: 10px;
-    font-weight: 300;
-}
-
-.gallery {
+/* Intro */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle,#ffe6f0,#cdb4db);
     display: flex;
-    gap: 20px;
-    padding: 40px;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
+    font-size: 2.2em;
+    z-index: 99;
+    animation: fadeOut 5s forwards;
 }
 
-.gallery img {
-    width: 220px;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    animation: float 4s ease-in-out infinite;
+@keyframes fadeOut {
+    0%,70% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
 }
 
-.gallery img:nth-child(2) { animation-delay: 1s; }
-.gallery img:nth-child(3) { animation-delay: 2s; }
-
-@keyframes float {
+/* Name Animation */
+.name span {
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+.name span:nth-child(n) {
+    animation-delay: calc(var(--i) * 0.1s);
+}
+@keyframes bounce {
     0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-15px); }
 }
 
-.cloud {
-    position: absolute;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    filter: blur(10px);
-    animation: drift 30s linear infinite;
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: pink;
+    top: -10px;
+    animation: fall linear forwards;
 }
 
-@keyframes drift {
-    from { transform: translateX(-200px); }
-    to { transform: translateX(110vw); }
+@keyframes fall {
+    from { transform: translateY(-10px) rotate(0deg); opacity:1; }
+    to { transform: translateY(110vh) rotate(720deg); opacity:0; }
 }
 
-iframe {
-    margin: 30px auto;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+/* Button */
+#playBtn {
+    padding: 15px 25px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg,#ffafcc,#ffc8dd);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin: 20px;
+}
+
+footer {
+    padding: 20px;
+    opacity: 0.85;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Soft clouds -->
-<div class="cloud" style="width:200px;height:200px;top:10%;animation-duration:40s;"></div>
-<div class="cloud" style="width:300px;height:300px;top:60%;animation-duration:55s;"></div>
+<div id="intro">✨ Welcome to Nimeshika’s Wonderful World ✨</div>
 
-<h1>✨ Happy 4 Months ✨</h1>
-<h2>Baby Girl Nimeshika 💕</h2>
-<p>Welcome to our dreamy wonderful world 🌙</p>
+<h1 class="name">
+  <span style="--i:1">N</span>
+  <span style="--i:2">i</span>
+  <span style="--i:3">m</span>
+  <span style="--i:4">e</span>
+  <span style="--i:5">s</span>
+  <span style="--i:6">h</span>
+  <span style="--i:7">i</span>
+  <span style="--i:8">k</span>
+  <span style="--i:9">a</span>
+</h1>
 
-<!-- Photo gallery -->
-<div class="gallery">
-    <img src="photos/baby1.jpg" alt="Nimeshika">
-    <img src="photos/baby2.jpg" alt="Nimeshika">
-    <img src="photos/baby3.jpg" alt="Nimeshika">
-</div>
+<h2>Happy 4 Months 🎀</h2>
+<p>Our little miracle 💕</p>
 
-<!-- Music -->
-<h2>🎵 Play Music 🎵</h2>
-<iframe width="320" height="180"
-src="https://www.youtube.com/embed/WJ3-F02-F_Y"
-title="Wonderful World"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen>
+<button id="playBtn">🎉 Play Music 🎉</button>
+
+<!-- Hidden YouTube audio -->
+<iframe id="yt"
+  width="1" height="1"
+  style="opacity:0; position:absolute; pointer-events:none;"
+  src=""
+  allow="autoplay">
 </iframe>
 
-<footer style="padding:20px;opacity:0.8;">
-    Made with love 💖
+<footer>
+Wonderful World ✨<br>
+Made with endless love 💖
 </footer>
+
+<script>
+/* START MUSIC ON TAP */
+document.getElementById("playBtn").onclick = () => {
+    document.getElementById("yt").src =
+      "https://www.youtube.com/embed/WJ3-F02-F_Y?autoplay=1";
+};
+
+/* NON-STOP BLASTING PAPERS */
+function createConfetti() {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background =
+      ["#ffafcc","#cdb4db","#fff","#ffc8dd"]
+      [Math.floor(Math.random()*4)];
+    c.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 6000);
+}
+
+/* Continuous blasting */
+setInterval(createConfetti, 80);
+</script>
 
 </body>
 </html>
