@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,6 @@
     <style>
         :root {
             --space-deep: #020617;
-            --glow-color: rgba(255, 255, 255, 0.6);
         }
 
         body {
@@ -22,10 +22,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: none; /* We hide the default cursor to use star dust */
+            cursor: none; /* Custom star-dust cursor */
         }
 
-        /* Initial Wish Button Screen */
+        /* Initial Screen */
         #startScreen {
             position: fixed;
             inset: 0;
@@ -49,7 +49,6 @@
             box-shadow: 0 0 20px rgba(255,255,255,0.2);
             letter-spacing: 3px;
             transition: 0.5s;
-            z-index: 101;
         }
 
         #initialWishBtn:hover {
@@ -58,7 +57,7 @@
             box-shadow: 0 0 40px white;
         }
 
-        /* Main Content */
+        /* Main Content Layer */
         #mainContent {
             opacity: 0;
             display: flex;
@@ -67,18 +66,17 @@
             transition: opacity 3s ease;
             text-align: center;
             z-index: 10;
-            pointer-events: auto;
         }
 
-        /* Portal Moon Styling */
+        /* The Moon Portal */
         .moon {
-            width: 180px;
-            height: 180px;
-            background: #000;
+            width: 200px;
+            height: 200px;
+            background: #111; /* Fallback if video fails */
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 3px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
             animation: moonPulse 4s infinite ease-in-out;
             box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
@@ -88,7 +86,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.9;
+            border-radius: 50%;
         }
 
         @keyframes moonPulse {
@@ -97,12 +95,12 @@
                 transform: scale(1);
             }
             50% { 
-                box-shadow: 0 0 60px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(0,0,0,0.2);
+                box-shadow: 0 0 70px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(0,0,0,0.2);
                 transform: scale(1.05);
             }
         }
 
-        /* Floating Glow Name */
+        /* Floating Text Effects */
         .name {
             font-size: clamp(2.5rem, 8vw, 4rem);
             letter-spacing: 12px;
@@ -117,29 +115,23 @@
         }
 
         @keyframes floatAndGlow { 
-            0%, 100% { 
-                transform: translateY(0); 
-                text-shadow: 0 0 5px rgba(255,255,255,0.2);
-            } 
-            50% { 
-                transform: translateY(-15px); 
-                text-shadow: 0 0 25px rgba(255,255,255,0.8);
-            } 
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 5px rgba(255,255,255,0.2); } 
+            50% { transform: translateY(-15px); text-shadow: 0 0 25px rgba(255,255,255,0.8); } 
         }
 
         #countdown {
             margin: 15px 0;
             font-size: 0.9rem;
             letter-spacing: 2px;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        /* Wish Input */
+        /* Input Controls */
         .wish-container {
             margin-top: 30px;
             display: flex;
             gap: 10px;
-            z-index: 20;
+            z-index: 50;
         }
 
         input {
@@ -162,12 +154,7 @@
             transition: 0.3s;
         }
 
-        .send-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px white;
-        }
-
-        /* Particles & Floating Items */
+        /* Visual Particles */
         .star-dot {
             position: absolute;
             background: white;
@@ -184,7 +171,6 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
-            box-shadow: 0 0 10px white;
         }
 
         .wish-star {
@@ -193,10 +179,10 @@
             color: #fff;
             text-shadow: 0 0 10px #fff;
             pointer-events: none;
-            font-style: italic;
+            font-size: 1.1rem;
         }
 
-        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+        @keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -207,7 +193,7 @@
 
 <div id="mainContent">
     <div class="moon">
-        <video muted loop playsinline id="moonVideo">
+        <video id="moonVideo" muted loop playsinline preload="auto">
             <source src="video.mp4" type="video/mp4">
         </video>
     </div>
@@ -220,7 +206,7 @@
     <div id="countdown"></div>
 
     <div class="wish-container">
-        <input type="text" id="wishInput" placeholder="Add another wish...">
+        <input type="text" id="wishInput" placeholder="Write a wish...">
         <button class="send-btn" onclick="sendWish()">Send 🌠</button>
     </div>
 </div>
@@ -233,15 +219,17 @@ const mainContent = document.getElementById('mainContent');
 const initialWishBtn = document.getElementById('initialWishBtn');
 const moonVideo = document.getElementById('moonVideo');
 
-// 1. WAKE UP THE UNIVERSE
+// 1. UNIVERSE ACTIVATION
 initialWishBtn.onclick = () => {
+    // Start Video (Modern browsers require user click to play)
+    moonVideo.play().catch(error => {
+        console.log("Video playback failed. Check if 'video.mp4' exists.", error);
+    });
+
     // Start Music
     document.getElementById('yt').src = "https://www.youtube.com/embed/WJ3-F02-F_Y?autoplay=1&loop=1&playlist=WJ3-F02-F_Y";
     
-    // Play the Video inside the moon
-    moonVideo.play();
-
-    // Transitions
+    // Smooth Transitions
     startScreen.style.opacity = '0';
     setTimeout(() => {
         startScreen.style.display = 'none';
@@ -251,13 +239,14 @@ initialWishBtn.onclick = () => {
     }, 2000);
 };
 
-// 2. BACKGROUND STARS
+// 2. GENERATE BACKGROUND STARS
 function initStars() {
     for (let i = 0; i < 150; i++) {
         let star = document.createElement('div');
         star.className = 'star-dot';
-        star.style.width = Math.random() * 2 + 'px';
-        star.style.height = star.style.width;
+        const size = Math.random() * 2 + 'px';
+        star.style.width = size;
+        star.style.height = size;
         star.style.top = Math.random() * 100 + 'vh';
         star.style.left = Math.random() * 100 + 'vw';
         star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite alternate`;
@@ -265,34 +254,30 @@ function initStars() {
     }
 }
 
-// 3. STAR DUST CURSOR
+// 3. MOUSE SPARKLE EFFECT
 document.addEventListener('mousemove', (e) => {
     const sparkle = document.createElement('div');
     sparkle.className = 'cursor-sparkle';
     sparkle.style.left = e.clientX + 'px';
     sparkle.style.top = e.clientY + 'px';
-    
-    // Random spread
-    const destinationX = (Math.random() - 0.5) * 50;
-    const destinationY = (Math.random() - 0.5) * 50;
-
     document.body.appendChild(sparkle);
+
+    const destX = (Math.random() - 0.5) * 60;
+    const destY = (Math.random() - 0.5) * 60;
 
     sparkle.animate([
         { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-        { transform: `translate(${destinationX}px, ${destinationY}px) scale(0)`, opacity: 0 }
-    ], {
-        duration: 1000,
-        easing: 'ease-out'
-    });
+        { transform: `translate(${destX}px, ${destY}px) scale(0)`, opacity: 0 }
+    ], { duration: 800, easing: 'ease-out' });
 
-    setTimeout(() => sparkle.remove(), 1000);
+    setTimeout(() => sparkle.remove(), 800);
 });
 
-// 4. FLYING WISHES
+// 4. FLOATING WISHES
 function sendWish() {
     const input = document.getElementById('wishInput');
-    if (!input.value) return;
+    if (!input.value.trim()) return;
+    
     const wish = document.createElement('div');
     wish.className = 'wish-star';
     wish.innerText = "✦ " + input.value;
@@ -300,15 +285,12 @@ function sendWish() {
     wish.style.left = '110vw';
     document.body.appendChild(wish);
     
-    wish.animate([
-        { left: '110vw' }, 
-        { left: '-100vw' }
-    ], { 
-        duration: 12000,
-        easing: 'linear'
+    wish.animate([{ left: '110vw' }, { left: '-120vw' }], { 
+        duration: 15000, 
+        easing: 'linear' 
     });
     
-    setTimeout(() => wish.remove(), 12000);
+    setTimeout(() => wish.remove(), 15000);
     input.value = '';
 }
 
@@ -321,23 +303,22 @@ function createShootingStar() {
     s.style.background = 'linear-gradient(to bottom, white, transparent)';
     s.style.top = '-100px';
     s.style.left = Math.random() * 100 + 'vw';
-    s.style.transform = 'rotate(45deg)';
-    s.style.zIndex = '1';
+    s.style.transform = 'rotate(225deg)';
     document.body.appendChild(s);
     
     s.animate([
         { transform: 'translate(0,0) rotate(45deg)', opacity: 1 },
         { transform: 'translate(-600px, 1200px) rotate(45deg)', opacity: 0 }
-    ], { duration: 2000 });
+    ], { duration: 2500 });
     
-    setTimeout(() => s.remove(), 2000);
+    setTimeout(() => s.remove(), 2500);
 }
 
-// 6. COUNTDOWN LOGIC
+// 6. COUNTDOWN (Set for 5-month milestone)
 function updateCountdown() {
-    const nextMilestone = new Date("Jan 27, 2026 00:00:00").getTime();
+    const target = new Date("Jan 27, 2026 00:00:00").getTime();
     const now = new Date().getTime();
-    const gap = nextMilestone - now;
+    const gap = target - now;
     
     const d = Math.floor(gap / (1000 * 60 * 60 * 24));
     const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
