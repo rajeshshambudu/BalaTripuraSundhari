@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nimeshika • 4 Months</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg, #cdb4db, #ffc8dd, #ffafcc);
+    background-size: 300% 300%;
+    animation: bg 12s ease infinite;
+    overflow-x: hidden;
+    color: white;
+    text-align: center;
+}
+
+@keyframes bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1 {
+    font-size: 3em;
+    margin-top: 40px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+h2 {
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.gallery {
+    display: flex;
+    gap: 20px;
+    padding: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    animation: float 4s ease-in-out infinite;
+}
+
+.gallery img:nth-child(2) { animation-delay: 1s; }
+.gallery img:nth-child(3) { animation-delay: 2s; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    filter: blur(10px);
+    animation: drift 30s linear infinite;
+}
+
+@keyframes drift {
+    from { transform: translateX(-200px); }
+    to { transform: translateX(110vw); }
+}
+
+iframe {
+    margin: 30px auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<!-- Soft clouds -->
+<div class="cloud" style="width:200px;height:200px;top:10%;animation-duration:40s;"></div>
+<div class="cloud" style="width:300px;height:300px;top:60%;animation-duration:55s;"></div>
+
+<h1>✨ Happy 4 Months ✨</h1>
+<h2>Baby Girl Nimeshika 💕</h2>
+<p>Welcome to our dreamy wonderful world 🌙</p>
+
+<!-- Photo gallery -->
+<div class="gallery">
+    <img src="photos/baby1.jpg" alt="Nimeshika">
+    <img src="photos/baby2.jpg" alt="Nimeshika">
+    <img src="photos/baby3.jpg" alt="Nimeshika">
+</div>
+
+<!-- Music -->
+<h2>🎵 Play Music 🎵</h2>
+<iframe width="320" height="180"
+src="https://www.youtube.com/embed/WJ3-F02-F_Y"
+title="Wonderful World"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+<footer style="padding:20px;opacity:0.8;">
+    Made with love 💖
+</footer>
+
+</body>
+</html>
