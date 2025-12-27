@@ -2,121 +2,243 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nimeshika • 4 Months</title>
+<title>Nimeshika’s Universe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
+:root {
+    --space-deep: #020617;
+}
 
 body {
     margin: 0;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #cdb4db, #ffc8dd, #ffafcc);
-    background-size: 300% 300%;
-    animation: bg 12s ease infinite;
-    overflow-x: hidden;
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--space-deep);
+    overflow: hidden;
     color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Initial Wish Button */
+#startScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--space-deep);
+    transition: opacity 2s ease;
+}
+
+#initialWishBtn {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    background: transparent;
+    color: white;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    letter-spacing: 3px;
+    transition: 0.5s;
+}
+
+#initialWishBtn:hover {
+    background: white;
+    color: var(--space-deep);
+    box-shadow: 0 0 40px white;
+}
+
+/* Main Content (Hidden initially) */
+#mainContent {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 3s ease;
     text-align: center;
 }
 
-@keyframes bg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Celestial Elements */
+.moon {
+    width: 100px;
+    height: 100px;
+    background: #fdfcf0;
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.2), inset -15px -10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
-h1 {
-    font-size: 3em;
-    margin-top: 40px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.8);
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { transform: scale(1); }
-    to { transform: scale(1.05); }
-}
-
-h2 {
-    margin-top: 10px;
+.name {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    letter-spacing: 12px;
+    margin: 10px 0;
     font-weight: 300;
 }
 
-.gallery {
+.name span {
+    display: inline-block;
+    animation: float 4s infinite ease-in-out;
+    animation-delay: calc(var(--i) * 0.1s);
+}
+
+#countdown {
+    margin: 15px 0;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+/* Wish Input at the bottom */
+.wish-container {
+    margin-top: 30px;
     display: flex;
-    gap: 20px;
-    padding: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.gallery img {
-    width: 220px;
-    height: 280px;
-    object-fit: cover;
+input {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 15px;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    animation: float 4s ease-in-out infinite;
+    color: white;
+    outline: none;
 }
 
-.gallery img:nth-child(2) { animation-delay: 1s; }
-.gallery img:nth-child(3) { animation-delay: 2s; }
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+.send-btn {
+    background: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.cloud {
+/* Floating Elements */
+.star-dot {
     position: absolute;
-    background: rgba(255,255,255,0.3);
+    background: white;
     border-radius: 50%;
-    filter: blur(10px);
-    animation: drift 30s linear infinite;
+    z-index: -1;
 }
 
-@keyframes drift {
-    from { transform: translateX(-200px); }
-    to { transform: translateX(110vw); }
+.wish-star {
+    position: absolute;
+    white-space: nowrap;
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+    pointer-events: none;
 }
 
-iframe {
-    margin: 30px auto;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+@keyframes twinkle {
+    from { opacity: 0.2; } to { opacity: 1; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- Soft clouds -->
-<div class="cloud" style="width:200px;height:200px;top:10%;animation-duration:40s;"></div>
-<div class="cloud" style="width:300px;height:300px;top:60%;animation-duration:55s;"></div>
-
-<h1>✨ Happy 4 Months ✨</h1>
-<h2>Baby Girl Nimeshika 💕</h2>
-<p>Welcome to our dreamy wonderful world 🌙</p>
-
-<!-- Photo gallery -->
-<div class="gallery">
-    <img src="photos/baby1.jpg" alt="Nimeshika">
-    <img src="photos/baby2.jpg" alt="Nimeshika">
-    <img src="photos/baby3.jpg" alt="Nimeshika">
+<div id="startScreen">
+    <button id="initialWishBtn">✨ Make a Wish for Nimeshika ✨</button>
 </div>
 
-<!-- Music -->
-<h2>🎵 Play Music 🎵</h2>
-<iframe width="320" height="180"
-src="https://www.youtube.com/embed/WJ3-F02-F_Y"
-title="Wonderful World"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen>
-</iframe>
+<div id="mainContent">
+    <div class="moon" id="moon"></div>
+    
+    <h1 class="name">
+        <span style="--i:1">N</span><span style="--i:2">i</span><span style="--i:3">m</span><span style="--i:4">e</span><span style="--i:5">s</span><span style="--i:6">h</span><span style="--i:7">i</span><span style="--i:8">k</span><span style="--i:9">a</span>
+    </h1>
+    
+    <h2>Happy 4 Months</h2>
+    <div id="countdown"></div>
 
-<footer style="padding:20px;opacity:0.8;">
-    Made with love 💖
-</footer>
+    <div class="wish-container">
+        <input type="text" id="wishInput" placeholder="Add another wish...">
+        <button class="send-btn" onclick="sendWish()">Send 🌠</button>
+    </div>
+</div>
+
+<iframe id="yt" width="1" height="1" style="display:none;" src="" allow="autoplay"></iframe>
+
+<script>
+const startScreen = document.getElementById('startScreen');
+const mainContent = document.getElementById('mainContent');
+const initialWishBtn = document.getElementById('initialWishBtn');
+
+// WAKE UP THE UNIVERSE
+initialWishBtn.onclick = () => {
+    // Start Music
+    document.getElementById('yt').src = "https://www.youtube.com/embed/WJ3-F02-F_Y?autoplay=1&loop=1&playlist=WJ3-F02-F_Y";
+    
+    // Transitions
+    startScreen.style.opacity = '0';
+    setTimeout(() => {
+        startScreen.style.display = 'none';
+        mainContent.style.opacity = '1';
+        initStars();
+        setInterval(createShootingStar, 4000);
+    }, 2000);
+};
+
+function initStars() {
+    for (let i = 0; i < 150; i++) {
+        let star = document.createElement('div');
+        star.className = 'star-dot';
+        star.style.width = Math.random() * 2 + 'px';
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite alternate`;
+        document.body.appendChild(star);
+    }
+}
+
+function sendWish() {
+    const input = document.getElementById('wishInput');
+    if (!input.value) return;
+    const wish = document.createElement('div');
+    wish.className = 'wish-star';
+    wish.innerText = "✦ " + input.value;
+    wish.style.top = (Math.random() * 60 + 20) + 'vh';
+    wish.style.left = '110vw';
+    document.body.appendChild(wish);
+    wish.animate([{ left: '110vw' }, { left: '-100vw' }], { duration: 10000 });
+    setTimeout(() => wish.remove(), 10000);
+    input.value = '';
+}
+
+function createShootingStar() {
+    const s = document.createElement('div');
+    s.style.position = 'absolute';
+    s.style.width = '2px';
+    s.style.height = '100px';
+    s.style.background = 'linear-gradient(to bottom, white, transparent)';
+    s.style.top = '-100px';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.transform = 'rotate(45deg)';
+    document.body.appendChild(s);
+    s.animate([{ transform: 'translate(0,0) rotate(45deg)' }, { transform: 'translate(-500px, 1000px) rotate(45deg)' }], { duration: 2000 });
+    setTimeout(() => s.remove(), 2000);
+}
+
+function updateCountdown() {
+    const nextMilestone = new Date("Jan 27, 2026 00:00:00").getTime();
+    const now = new Date().getTime();
+    const gap = nextMilestone - now;
+    const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+    const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((gap % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerHTML = `5 Month Milestone in: ${d}d ${h}h ${m}m ${s}s`;
+}
+setInterval(updateCountdown, 1000);
+</script>
 
 </body>
 </html>
